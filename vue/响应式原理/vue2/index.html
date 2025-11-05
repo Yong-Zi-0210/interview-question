@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body>
+    先说说前端发展历史 + 演变成模块化 + 从而构建工具 开发 + 构建 + 测试 + 部署 +
+    性能监控
+    <script src="../../vue.dev.js"></script>
+    <div class="box" id="root">
+      <app />
+      <input type="text" />
+      <input type="text" />
+    </div>
+    <script>
+      const app = Vue.extend({
+        template: "<h1>hahah</h1>",
+      });
+      new Vue({
+        el: "#root",
+        data: {
+          msg: 1222,
+        },
+        components: {
+          app,
+        },
+      });
+      console.log(app);
+    </script>
+  </body>
+</html>

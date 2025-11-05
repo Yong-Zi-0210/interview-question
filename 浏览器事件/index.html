@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>浏览器事件</title>
+  </head>
+  <body>
+    <button id="btn">点击</button>
+    <script>
+      const btn = document.getElementById("btn");
+      btn.onclick = function () {
+        console.log("DOM0级事件");
+      };
+
+      function btnClick(e) {
+        console.log("DOM2级事件");
+      }
+      btn.addEventListener("click", btnClick);
+      const map = new Map();
+      const obj = {
+        name: "123",
+      };
+      map.set(obj, 1);
+      console.log(map.keys().next());
+
+      // 自定义事件触发
+      const loging = (options) => {
+        console.log(options);
+      };
+      window.addEventListener("login", loging);
+      window.dispatchEvent(new CustomEvent("login"), { mssage: "事件触发了" });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 方式1 -->
+    <button id="btn" onclick="click1">按钮</button>
+    <script>
+      // DOM0级事件的，绑定事件的方式可以直接在元素上绑定
+      // 缺点：无法取消已经绑定的事件，只能绑定一个事件，如果多次绑定已最后一次为准
+      function click1(e) {
+        console.log("DOM0级事件");
+      }
+      // 方式2
+      btn.onClick = function (e) {
+        console.log("DOM0级事件");
+        console.log(e.target);
+      };
+
+      // DOM2级事件
+      const click2 = (e) => {};
+      // 监听事件
+      btn.addEventListener("click", click2, true); // true标识事件捕获阶段
+      // 取消事件监听
+      btn.removeEventListener("click", click2);
+
+      // 利用window的自定义事件进行不同页面之间的通信
+      const customEvent = (options) => {
+        console.log(options);
+      };
+      // 监听
+      window.addEventListener("customEvent", customEvent);
+      // 手动触发自定义事件
+      window.dispatchEvent(new CustomEvent("customEvent"), {
+        message: "事件已经触发",
+      });
+    </script>
+  </body>
+</html>

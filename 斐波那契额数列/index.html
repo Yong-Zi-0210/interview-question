@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>斐波那契额数列</title>
+</head>
+<body>
+    <script>
+        function fibonacci(n){
+            if(n <= 1){
+                return 1
+            }
+            return fibonacci(n-1) + fibonacci(n-2)
+        }
+
+        function ConsoleArr(num){
+            for(let i = 0; i<= num; i++){
+                console.log(fibonacci(i))
+            }
+        }
+        ConsoleArr(5)
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>发布订阅模式</title>
+  </head>
+  <body>
+    <script type="text/javaScript">
+      class pubSub{
+          constructor(){
+              this.event = {}
+          }
+          // 收集订阅
+          subscribe(eventName, callback){
+              if(!this.event[eventName]){
+                  this.event[eventName] = [callback]
+              } else {
+                  this.event[eventName].push(callback)
+              }
+          }
+
+          // 发布
+          publish(eventName, ...rest){
+               this.event[eventName] &&
+               this.event[eventName].forEach(fn=>fn.call(this,...rest))
+          }
+
+          // 删除订阅
+          remove(eventName, callback){
+              if(this.event[eventName]){
+                  this.event[eventName] = this.event[eventName].filter(fn=>fn !== callback)
+              }
+          }
+          // 只订阅一次
+          once(eventName, callback){
+              const fn = (...rest)=>{
+                  callback.call(this, ...rest)
+                  this.remove(eventName,fn)
+              }
+              this.subscribe(eventName, fn)
+          }
+      }
+    </script>
+  </body>
+</html>
