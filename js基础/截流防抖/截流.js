@@ -1,8 +1,8 @@
-function throttle(fn, delazy) {
+function throttle(fn, delay) {
   let startTime = 0; // 初始时间
   return function () {
     const currentTime = Date.now();
-    if (currentTime - startTime >= delazy) {
+    if (currentTime - startTime >= delay) {
       startTime = currentTime;
       return fn.call(this, ...arguments);
     }

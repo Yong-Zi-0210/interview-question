@@ -20,7 +20,7 @@ function Person() {
 
 function Teacher(name) {
   this.name = name;
-  this.hobiy = ["A", "B"];
+  this.hobbies = ["A", "B"];
 }
 
 Teacher.prototype = new Person(); // 会造成构造函数丢失
@@ -30,7 +30,7 @@ const t1 = new Teacher("1");
 const t2 = new Teacher("2");
 t2.classify.push("其他");
 
-// 缺点： 引用类型的数据d会被共享
+// 缺点： 父类中的引用类型的数据会被共享，所有子类共享父类的引用属性
 console.log(p.classify); //  '黄种人', '白人', '黑人' ]
 console.log(t1.classify); //  '黄种人', '白人', '黑人', '其他' ]
 console.log(t2.classify); //  '黄种人', '白人', '黑人', '其他' ]
@@ -40,7 +40,7 @@ console.log(t2.classify); //  '黄种人', '白人', '黑人', '其他' ]
  */
 const obj = Object.create({
   name: "原型继承",
-  hobiy: ["A", "B"],
+  hobbies: ["A", "B"],
 });
 function createObject(obj) {
   function F() {}
@@ -49,12 +49,12 @@ function createObject(obj) {
 }
 const obj1 = createObject(obj);
 const obj2 = createObject(obj);
-obj1.hobiy.push("C");
+obj1.hobbies.push("C");
 
 // 缺点：与原型链一致，引用类型的数据被共享
-console.log(obj.hobiy); // [ 'A', 'B', 'C' ]
-console.log(obj1.hobiy); // [ 'A', 'B', 'C' ]
-console.log(obj2.hobiy); // [ 'A', 'B', 'C' ]
+console.log(obj.hobbies); // [ 'A', 'B', 'C' ]
+console.log(obj1.hobbies); // [ 'A', 'B', 'C' ]
+console.log(obj2.hobbies); // [ 'A', 'B', 'C' ]
 
 /**
  * 借用构造函数
@@ -63,7 +63,7 @@ console.log(obj2.hobiy); // [ 'A', 'B', 'C' ]
 function Student(name, age) {
   this.name = name;
   this.age = age;
-  this.hobiy = ["篮球", "足球"];
+  this.hobbies = ["篮球", "足球"];
 }
 
 function GoodStudent(name, age) {
@@ -72,13 +72,13 @@ function GoodStudent(name, age) {
 
 const g1 = new GoodStudent("张三", 18);
 const g2 = new GoodStudent("李四", 18);
-g2.hobiy.push("音乐");
+g2.hobbies.push("音乐");
 
 // 解决了引用数据类型的共享
 // 可以在Child中项Parent传参
 // 缺点：只继承了构造函数的属性和方法，没有继承构造函数的原型，因此创建子类时每次都会调用构造函数，复制一次这个方法
-console.log(g1.hobiy); // [ '篮球', '足球' ]
-console.log(g2.hobiy); // [ '篮球', '足球', '音乐' ]
+console.log(g1.hobbies); // [ '篮球', '足球' ]
+console.log(g2.hobbies); // [ '篮球', '足球', '音乐' ]
 
 /**
  * 组合继承: 借用构造函数和原型链组合

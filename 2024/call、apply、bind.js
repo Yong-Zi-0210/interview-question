@@ -21,16 +21,16 @@ Function.prototype.myApply = function (ctx, args = []) {
 
 // bind
 Function.mybind = function (ctx, ...rest) {
-  if (typeof ctx !== "function") {
-    throw new Error(`${ctx}.bind is not a function`);
+  const fn = this;
+  if (typeof fn !== "function") {
+    throw new Error(`${this}.bind is not a function`);
   }
   if (typeof ctx === "undefined" || ctx === null) {
     ctx = window;
   }
-  const self = this;
   function fNop() {}
   function fBound() {
-    self.apply(this instanceof fNop ? this : ctx, [...rest, ...arguments]);
+    fn.apply(this instanceof fNop ? this : ctx, [...rest, ...arguments]);
   }
   fNop.prototype = this.prototype;
   fBound.prototype = new fNop();

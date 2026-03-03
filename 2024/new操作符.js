@@ -8,6 +8,6 @@
 function objFactory(constructor) {
   const obj = new Object();
   Object.setPrototypeOf(obj, constructor.prototype);
-  const res = constructor.call(obj, [...arguments].slice(1));
+  const res = constructor.apply(obj, [...arguments].slice(1));
   return typeof res === "object" ? res : obj;
 }

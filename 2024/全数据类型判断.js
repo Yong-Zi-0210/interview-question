@@ -4,6 +4,7 @@ function getType(obj) {
     "Number",
     "Boolean",
     "String",
+    "Undefined",
     "Function",
     "Object",
     "Array",

@@ -1,4 +1,4 @@
-// 1、利用拓展元算符递归
+// 1、利用拓展运算符递归
 function flatten(arr) {
   while (arr.some((item) => Array.isArray(item))) {
     arr = [].concat(...arr);

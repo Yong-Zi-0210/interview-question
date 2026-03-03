@@ -1,5 +1,6 @@
-// 获取 min~max之间的随机数
+// 获取 min~max之间的随机数， 包含
 function random(min, max) {
-  return Math.floor(Math.random() * (max - min) + min) + 1;
+  const num = Math.floor(Math.random() * (max - min + 1)) + min;
+  return num;
 }
 console.log(random(10, 100));

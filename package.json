@@ -1,0 +1,19 @@
+{
+  "name": "interview-question",
+  "version": "1.0.0",
+  "description": "## 进程",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yong-Zi-0210/interview-question.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yong-Zi-0210/interview-question/issues"
+  },
+  "homepage": "https://github.com/Yong-Zi-0210/interview-question#readme"
+}
