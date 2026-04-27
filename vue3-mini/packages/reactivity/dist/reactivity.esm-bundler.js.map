@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../shared/src/index.ts", "../src/reactive.ts"],
+  "sourcesContent": ["export function isObject(value: any) {\r\n  return value !== null && typeof value === \"object\";\r\n}\r\n", "import { isObject } from \"packages/shared/src\";\r\n\r\nexport function reactive(target) {\r\n  if (!isObject(target)) {\r\n    return target;\r\n  }\r\n  // TODO: \u540E\u7EED\u5B9E\u73B0 Proxy \u54CD\u5E94\u5F0F\r\n  return target;\r\n}\r\n"],
+  "mappings": ";AAAO,SAAS,SAAS,OAAY;AACnC,SAAO,UAAU,QAAQ,OAAO,UAAU;AAC5C;;;ACAO,SAAS,SAAS,QAAQ;AAC/B,MAAI,CAAC,SAAS,MAAM,GAAG;AACrB,WAAO;AAAA,EACT;AAEA,SAAO;AACT;",
+  "names": []
+}

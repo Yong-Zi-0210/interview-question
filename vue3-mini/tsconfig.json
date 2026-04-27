@@ -1,0 +1,16 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node", // 模块解析
+    "types": [],
+    "sourceMap": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@vue/*": ["packages/*/src/index.ts"]
+    }
+  }
+}
