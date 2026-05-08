@@ -22,7 +22,7 @@
        * HTTPS建立连接
        * 1 client hello 报文，密码套件、随机数A、tls版本信息
        * 2、server hello 确认tls版本、密码套件、随机数B
-       * 3、想客户端发送数字证书
+       * 3、向客户端发送数字证书
        * 4、客户端收到数字证书、用事先内置的CA公钥对证书进行解密，获取到证书签名和server的公钥
        * 随机数A和随机数B生成pre-master-key,用server的公钥进行加密传给server
        * 5、随机数A + 随机数B+ pre-master-key = session-key，通知server改用新的密钥进行通信

@@ -8,6 +8,9 @@ function call(context, ...rest) {
   if (typeof this !== "function") {
     throw new TypeError(`${this}.call is not a function`);
   }
+  if (context === null || typeof context === "undefined") {
+    context = window;
+  }
   const fnSymbol = Symbol();
   context[fnSymbol] = this;
   const res = context[fnSymbol](...rest);

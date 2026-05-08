@@ -10,10 +10,10 @@ class PublishSubscribe {
       this.events[eventName].push(callback);
     }
   }
-  emit(eventName, ...args) {
+  emit(eventName, args) {
     if (this.events[eventName]) {
       this.events[eventName].forEach((fn) => {
-        fn.call(...args);
+        fn.apply(this, args);
       });
     }
   }
@@ -27,8 +27,8 @@ class PublishSubscribe {
   }
 
   once(eventName, callbak) {
-    const fn = (...args) => {
-      callbak.call(this, ...args);
+    const fn = (args) => {
+      callbak.apply(this, args);
       this.remove(eventName, fn);
     };
 

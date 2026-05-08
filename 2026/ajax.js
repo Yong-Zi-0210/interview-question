@@ -40,9 +40,9 @@ const ajax = (options) => {
   xhr.onreadystatechange = function () {
     // 判断readyState
     if (xhr.readyState === 4) {
+      clearTimeout(timer);
       if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
         options.success && options.success(xhr.responseText);
-        clearTimeout(timer);
       } else {
         options.error && options.error(xhr.responseText);
       }

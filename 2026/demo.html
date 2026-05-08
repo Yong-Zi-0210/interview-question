@@ -1,43 +1,68 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div class="btn">
-      <button id="button">点击</button>
-    </div>
-    <script type="text/javascript">
-      // vue3响应式
-      function reactive(target) {
-        // 判断不是对象不处理
-        if (typeof target !== "object" || target === null) {
-          return target;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<body>
+  <div class="btn">
+    <button id="button">点击</button>
+  </div>
+  <script type="text/javascript">
+    let timer
+    // ajax
+    const ajax = option => {
+      const setParams = data => {
+        const res = []
+        for(const key in data) {
+          if(Object.prototype.hasOwnProperty.call(data, key)) {
+            res.push(`${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+          }
         }
-        const proxy = new Proxy(target, {
-          get(target, key, receiver) {
-            // 收集依赖
-            track(target, key);
-            const result = Reflect.get(target, key, receiver);
-            if (Object.prototype.toString.call(result) === "[object Object]") {
-              return reactive(result);
-            }
-            return result;
-          },
-          set(target, key, value, receiver) {
-            const oldValue = target[key];
-            const result = Reflect.set(target, key, value, receiver);
-            if (oldValue !== value) {
-              // 触发更新
-              trigger(target, key);
-              console.log("数据更新了");
-            }
-            return result;
-          },
-        });
+        return res.jion('&')
       }
-    </script>
-  </body>
+      // 创建xhr对象
+      let xhr
+      if(window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest()
+      } else {
+        xhr = new ActiveXObject('Microsoft.XMLHTTP')
+      }
+      // 打开连接
+      const params = setParams(option.data)
+      if(option?.method && option.method.toLowercase() === 'post') {
+        xhr.open('post',option.url, true)
+        xhr.setRequestHeader('Content-Type', 'appliction/x-www-form-urlencoded')
+        xhr.send(params)
+      } else if(option?.method && option.method.toLowercase() === 'get') {
+        xhr.open('get', `${option.url}?t=${new Date().getTime()}`, true)
+        xhr.send(params)
+      }
+
+      // 监听变化
+      xhr.onreadystatechange = function() {
+        if(xhr.readyState === 400) {
+          clearTimeout(timer)
+          if(xhr.status>=200 && xhr.status < 300 || xhr.status === 304) {
+            option.success && option.success(xhr.responseText)
+          } else {
+            option.error && option.error(xhr.responseText)
+          }
+        }
+      }
+
+      // 超时设置
+      if(option.timeout) {
+        timer = setTimeout(() => {
+          xhr.abort()
+          clearTimeout(timer)
+          timer = null
+        }, option.timeout);
+      }
+    }
+    
+
+  </script>
+</body>
 </html>

@@ -6,13 +6,17 @@ function bind(context, ...args) {
   if (context === null || typeof context === "undefined") {
     context = window;
   }
-  const fn = this;
-  const boundFunction = () => {
-    const isNew = this instanceof fNop;
-    fn.apply(isNew ? this : context, [...args, ...arguments]);
-  };
-  function fNop() {}
-  fNop.prototype = fn.prototype;
-  boundFunction.prototype = new fNop();
-  return boundFunction();
+  const originFn = this
+  const boundFn = function(){
+    const finalArgs = [...args, ...arguments]
+    const finalContext = this instanceof boundFn ? this : context
+    return originFn.apply(finalContext, finalArgs)
+  }
+
+  // 维护原型链
+  if(originFn.prototype) {
+    boundFn.prototype =  Object.create(originFn.prototype)
+  }
+
+  return boundFn
 }
