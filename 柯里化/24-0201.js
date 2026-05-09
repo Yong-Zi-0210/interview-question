@@ -1,20 +1,21 @@
 // 参数长度固定的柯里化
 function curry(fn) {
-  const lenght = fn.lenght;
-  const args = [...arguments].slice(1);
-  return function () {
-    const newArgs = [...args, ...arguments];
-    if (newArgs.length === lenght) {
-      return fn.apply(null, newArgs);
-    } else {
-      return curry.call(null, fn, ...newArgs);
+  return function curried(...args) {
+    // 参数够了，直接执行
+    if (args.length >= fn.length) {
+      return fn.apply(this, args);
     }
+    // 参数不够，返回新函数继续收集
+    return function(...args2) {
+      return curried.apply(this, args.concat(args2));
+    };
   };
 }
 
+
 // es6写法
 function esCurry(fn, ...args) {
-  return fn.lenght >= args.length
+  return fn.length <= args.length
     ? fn.apply(null, args)
     : esCurry.bind(null, fn, ...args);
 }

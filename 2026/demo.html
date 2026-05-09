@@ -11,54 +11,16 @@
   </div>
   <script type="text/javascript">
     let timer
-    // ajax
-    const ajax = option => {
-      const setParams = data => {
-        const res = []
-        for(const key in data) {
-          if(Object.prototype.hasOwnProperty.call(data, key)) {
-            res.push(`${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    // 
+    function curry(fn){
+      return function curried(...args){
+        if(args.length >= fn.length) {
+          return fn.apply(this, args)
+        } else {
+          return function(...args2) {
+            return curried.apply(this, args.concat(args2))
           }
         }
-        return res.jion('&')
-      }
-      // 创建xhr对象
-      let xhr
-      if(window.XMLHttpRequest) {
-        xhr = new XMLHttpRequest()
-      } else {
-        xhr = new ActiveXObject('Microsoft.XMLHTTP')
-      }
-      // 打开连接
-      const params = setParams(option.data)
-      if(option?.method && option.method.toLowercase() === 'post') {
-        xhr.open('post',option.url, true)
-        xhr.setRequestHeader('Content-Type', 'appliction/x-www-form-urlencoded')
-        xhr.send(params)
-      } else if(option?.method && option.method.toLowercase() === 'get') {
-        xhr.open('get', `${option.url}?t=${new Date().getTime()}`, true)
-        xhr.send(params)
-      }
-
-      // 监听变化
-      xhr.onreadystatechange = function() {
-        if(xhr.readyState === 400) {
-          clearTimeout(timer)
-          if(xhr.status>=200 && xhr.status < 300 || xhr.status === 304) {
-            option.success && option.success(xhr.responseText)
-          } else {
-            option.error && option.error(xhr.responseText)
-          }
-        }
-      }
-
-      // 超时设置
-      if(option.timeout) {
-        timer = setTimeout(() => {
-          xhr.abort()
-          clearTimeout(timer)
-          timer = null
-        }, option.timeout);
       }
     }
     

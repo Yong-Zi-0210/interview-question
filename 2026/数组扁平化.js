@@ -20,11 +20,12 @@ function flatten3(arr) {
   let result = [];
   for (let i = 0; i < arr.length; i++) {
     if (Array.isArray(arr[i])) {
-      result = result.concat(flatten3(arr(i)));
+      result = result.concat(flatten3(arr[i]));
+    } else {
+      result.push(arr[i]);
     }
-    result.push(arr[i]);
   }
-  return arr;
+  return result;
 }
 
 // 明确数组层级情况
